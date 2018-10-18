@@ -1,7 +1,6 @@
 import React from 'react'
 import Search from './components/Search'
 import BookShelf from './components/BookShelf'
-import Book from './components/Book'
 // import * as BooksAPI from './BooksAPI'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -18,7 +17,7 @@ class BooksApp extends React.Component {
          * pages, as well as provide a good URL they can bookmark and share.
          */
         showSearchPage: false,
-        books:[]
+        myBooks:[]
     }
 
     componentDidMount() {
@@ -30,7 +29,7 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-            this.state.showSearchPage ? <Search /> : (
+            this.state.showSearchPage ? <Search search={BooksAPI.search}/> : (
                 <div className="list-books">
                     <div className="list-books-title">
                         <h1>MyReads</h1>

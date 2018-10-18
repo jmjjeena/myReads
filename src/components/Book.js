@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Book extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     render() {
         return (
-            < div className="book" >
+            < div className="book" key={this.props.id} >
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.image}")` }}></div>
                     <div className="book-shelf-changer">
