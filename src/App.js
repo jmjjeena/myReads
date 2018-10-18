@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Search from './components/Search'
 import BookShelf from './components/BookShelf'
 import Book from './components/Book'
