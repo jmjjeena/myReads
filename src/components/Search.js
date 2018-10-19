@@ -32,16 +32,18 @@ class Search extends Component {
     // }
     changeQuery = (e) => {
         const searchQuery = e.target.value;
-        this.setState({ query: e.target.value }, () => console.log('state:', this.state));
-        // console.log(this.props.books);
-        this.searchBook(searchQuery);
+        this.setState({ query: e.target.value }, () => {
+            console.log('state:', this.state);
+            this.handleSearch(searchQuery);
+        });
     }
 
     handleSearch = (query) => {
         console.log('query', query);
         BooksAPI.search(query).then((books) => {
             console.log('result', books);
-            this.setState({ books })
+            this.setState({ books }, () => console.log('state:', this.state));
+            console.log(this.state.books);
         });
     }
 
