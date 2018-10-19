@@ -48,14 +48,8 @@ class BooksApp extends React.Component {
                     <div className="open-search">
                         <Router>
                             <div>
-                                <Link to="/search">
-                                    <div>
-                                        <a onClick={() => this.setState({ showSearchPage: true })}>
-                                            Add a book
-                                        </a>
-                                    </div>
-                                </Link> 
-                     
+                                <Link to="/search"onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link> 
+                                
                                 <Route path="/search" component={Search} />     
                             </div>                      
                         </Router>
