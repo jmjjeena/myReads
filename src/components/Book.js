@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
-class Book extends React.Component {
-
+class Book extends Component {
+  updateShelf = (e) => {
+    this.props.updateShelf(this.props.book, e.target.value);
+  }
 
     render() {
         return (

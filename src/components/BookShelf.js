@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Book from './Book'
 
-class BookShelf extends React.Component {
+class BookShelf extends Component {
     render() {
 
         const booksElements = this.props.books.map((book, index) => 
