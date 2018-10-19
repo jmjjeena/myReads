@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Book from './Book'
 import BooksApp from '../App'
-
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Search extends Component {
@@ -10,19 +9,29 @@ class Search extends Component {
         valid: true,
         query: ''
     }
-    handleSearch = this.handleSearch.bind(this);
 
-    handleSearch(query) {
-        console.log("query: ", query)
-        this.props.search(query)
-        .then(results => {
-            console.log("results: ", results)
-            if (Array.isArray(results)){
-                this.setState({ results })
-            } else {
-                this.setState({results: []})
-            }   
-        })
+    // handleSearch = this.handleSearch.bind(this);
+
+    showBook = (e) => {
+        console.log('Input:', e.target.value);
+        this.props.searchBook(e.target.value);
+    }
+
+    // handleSearch(query) {
+    //     console.log("query: ", query)
+    //     this.props.search(query)
+    //     .then(results => {
+    //         console.log("results: ", results)
+    //         if (Array.isArray(results)){
+    //             this.setState({ results })
+    //         } else {
+    //             this.setState({results: []})
+    //         }   
+    //     })
+    // }
+    changeQuery = (e) => {
+        this.setState({ query: e.target.value }, () => console.log('state:', this.state));
+        console.log(this.props.books);
     }
 
     render() {
@@ -47,8 +56,11 @@ class Search extends Component {
                         </div>
                     </Router>
                     <div className="search-books-input-wrapper">
-                        {'Hello'}
-                        <input type="text" placeholder="Search by title or author" onChange={(e) => this.handleSearch(e.target.value)} />
+                        <input 
+                            type="text"
+                            placeholder="Search by title or author" 
+                            onChange={this.changeQuery} 
+                            />
                     </div>
                 </div> 
 
