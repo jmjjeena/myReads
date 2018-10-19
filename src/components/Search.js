@@ -12,7 +12,11 @@ class Search extends React.Component {
         this.props.search(query)
         .then(results => {
             console.log("results: ", results)
-            this.setState({results})
+            if (true){
+                this.setState({ results })
+            } else {
+                this.setState({results: []})
+            }  
         })
     }
 
