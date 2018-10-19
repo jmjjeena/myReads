@@ -1,9 +1,12 @@
 import React from 'react'
 import Book from './Book'
+import BooksApp from '../App'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Search extends React.Component {
     state = {
-        results: []
+        results: [],
+        valid: true
     }
     handleSearch = this.handleSearch.bind(this);
 
@@ -12,21 +15,39 @@ class Search extends React.Component {
         this.props.search(query)
         .then(results => {
             console.log("results: ", results)
-            if (true){
+            if (Array.isArray(results)){
                 this.setState({ results })
             } else {
                 this.setState({results: []})
-            }  
+            }   
         })
     }
 
     render() {
-        const booksElements = this.state.results.map(book => <Book id={book.industryIdentifiers[0].identifier} title={book.title} author={book.authors[0]} image={book.imageLinks.thumbnail} />)
-
+        console.log(this.state.results.length > 0)
+        const booksElements = this.state.results.length > 0 ? this.state.results.map(book => 
+            <Book 
+                id={book.industryIdentifiers[0].identifier}
+                title={book.title}
+                author={book.authors[0]}
+                image={book.imageLinks.thumbnail} 
+            />
+        ) : "";
+            console.log("bookElements: ", booksElements)
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                    <Router>
+                        <div>
+                            <Link to="/">
+                                <a className="close-search">
+                                    Close
+                                </a>
+                            </Link>
+                            <Route exact path="/" component={BooksApp} />
+                        </div>
+                    </Router>
+
                     <div className="search-books-input-wrapper">
                         {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.

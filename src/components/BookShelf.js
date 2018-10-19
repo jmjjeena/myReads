@@ -4,15 +4,15 @@ import Book from './Book'
 class BookShelf extends React.Component {
     render() {
 
-        const booksElements = this.props.books.map(book => 
-            <l1>
+        const booksElements = this.props.books.map((book, index) => 
+            <li key={index}>
                 <Book 
                     id={book.industryIdentifiers[0].identifier}
                     title={book.title}
                     author={book.authors[0]}
                     image={book.imageLinks.thumbnail} 
                 /> 
-            </l1>
+            </li>
         )
 
         return (

@@ -1,6 +1,8 @@
 import React from 'react'
 import Search from './components/Search'
 import BookShelf from './components/BookShelf'
+
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import * as BooksAPI from './BooksAPI'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -20,11 +22,15 @@ class BooksApp extends React.Component {
         books:[]
     }
 
-    componentDidMount() {
+    componentWillMount() {
         BooksAPI.getAll().then((books) =>{
             this.setState({books})
             console.log(this.state);
         })
+    }
+
+    updateShelf(book, shelf){
+        console.log("jeena in updateShelf")
     }
 
     render() {
@@ -35,12 +41,24 @@ class BooksApp extends React.Component {
                         <h1>MyReads</h1>
                     </div>
                     <div className="list-books-content">          
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'currentlyReading' })} changeShelf={changeShelf} title="Currently Reading" />
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'wantToRead' })} changeShelf={changeShelf} title="Want to Read" />
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'read' })} changeShelf={changeShelf} title="Read" />
+                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'currentlyReading' })} updateShelf={"changeShelf"} title="Currently Reading" />
+                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'wantToRead' })} updateShelf={"changeShelf"} title="Want to Read" />
+                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'read' })} updateShelf={"changeShelf"} title="Read" />
                     </div>
                     <div className="open-search">
-                        <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+                        <Router>
+                            <div>
+                                <Link to="/search">
+                                    <div>
+                                        <a onClick={() => this.setState({ showSearchPage: true })}>
+                                            Add a book
+                                        </a>
+                                    </div>
+                                </Link> 
+                     
+                                <Route path="/search" component={Search} />     
+                            </div>                      
+                        </Router>
                     </div>
                 </div>
             )
