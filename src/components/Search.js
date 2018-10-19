@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Book from './Book'
 import BooksApp from '../App'
+import * as BooksAPI from '../BooksAPI'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Search extends Component {
@@ -30,8 +31,18 @@ class Search extends Component {
     //     })
     // }
     changeQuery = (e) => {
+        const searchQuery = e.target.value;
         this.setState({ query: e.target.value }, () => console.log('state:', this.state));
-        console.log(this.props.books);
+        // console.log(this.props.books);
+        this.searchBook(searchQuery);
+    }
+
+    handleSearch = (query) => {
+        console.log('query', query);
+        BooksAPI.search(query).then((books) => {
+            console.log('result', books);
+            this.setState({ books })
+        });
     }
 
     render() {
