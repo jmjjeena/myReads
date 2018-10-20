@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
 class Book extends Component {
+    
   updateShelf = (e) => {
+      console.log('Updating!', this.props.book.shelf)
     this.props.updateShelf(this.props.book, e.target.value);
   }
 
@@ -22,7 +24,7 @@ class Book extends Component {
                     </div>
                 </div>
                 <div className="book-title">{this.props.title}</div>
-                <div className="book-authors">{this.props.author}</div>
+                <div className="book-authors">{this.props.authors}</div>
             </div >
         );
     }

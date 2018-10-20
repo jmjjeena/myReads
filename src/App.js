@@ -35,12 +35,14 @@ class BooksApp extends React.Component {
     updateShelf = (book, shelf) => {
     // console.log('book', book);
     // console.log('e', shelf);
-    BooksAPI.update(book, shelf).then(() => {
-      this.fetchBooks();
-    });
+        BooksAPI.update(book, shelf).then(() => {
+            this.fetchBooks();
+        });
 }
 
     render() {
+        
+        
         return (
             this.state.showSearchPage ? <Search search={BooksAPI.search}/> : (
                 <div className="list-books">

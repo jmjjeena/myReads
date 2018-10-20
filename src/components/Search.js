@@ -6,17 +6,10 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Search extends Component {
     state = {
-        results: [],
-        valid: true,
-        query: ''
+        results: []
     }
 
     // handleSearch = this.handleSearch.bind(this);
-
-    showBook = (e) => {
-        console.log('Input:', e.target.value);
-        this.props.searchBook(e.target.value);
-    }
 
     // handleSearch(query) {
     //     console.log("query: ", query)
@@ -29,35 +22,37 @@ class Search extends Component {
     //             this.setState({results: []})
     //         }   
     //     })
-    // }
-    changeQuery = (e) => {
-        const searchQuery = e.target.value;
-        this.setState({ query: e.target.value }, () => {
-            console.log('state:', this.state);
-            this.handleSearch(searchQuery);
-        });
-    }
-
+    // 
     handleSearch = (query) => {
-        console.log('query', query);
-        BooksAPI.search(query).then((books) => {
-            console.log('result', books);
-            this.setState({ books }, () => console.log('state:', this.state));
-            console.log(this.state.books);
-        });
+        if (query) {
+            console.log('query', query);
+            BooksAPI.search(query).then((books) => {
+                if (books.length > 0) {
+                    console.log('result', books);
+                    books = books.filter((book) => (book.imageLinks.thumbnail));
+                    this.setState({ results: books });
+                }
+                else {
+                    this.setState({ results: [] });
+                }
+            });
+        } else {
+            console.log('no query:', query);
+            this.setState({ results: [] });
+        }
     }
 
     render() {
-        console.log(this.state.results.length > 0)
-        const booksElements = this.state.results.length > 0 ? this.state.results.map(book => 
-            <Book 
-                id={book.industryIdentifiers[0].identifier}
-                title={book.title}
-                author={book.authors[0]}
-                image={book.imageLinks.thumbnail} 
-            />
-        ) : "";
-            console.log("bookElements: ", booksElements)
+        // console.log(this.state.results.length > 0)
+        // const booksElements = this.state.results.length > 0 ? this.state.results.map(book => 
+        //     <Book 
+        //         id={book.industryIdentifiers[0].identifier}
+        //         title={book.title}
+        //         author={book.authors[0]}
+        //         image={book.imageLinks.thumbnail} 
+        //     />
+        // ) : "";
+        //     console.log("bookElements: ", booksElements)
         return (
             <div className="search-books">
             <div className="search-books-bar">
@@ -72,7 +67,7 @@ class Search extends Component {
                         <input 
                             type="text"
                             placeholder="Search by title or author" 
-                            onChange={this.changeQuery} 
+                            onChange={event => this.handleSearch(event.target.value)} 
                             />
                     </div>
                 </div> 
@@ -89,7 +84,14 @@ class Search extends Component {
                 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {booksElements}
+                        {this.state.results.map((book, index) => (
+                            <Book
+                                book={book}
+                                key={index}
+                                updateShelf={this.props.updateShelf}
+                            />
+                        ))}
+                        {/* {booksElements} */}
                     </ol>
                 </div>
             </div>
