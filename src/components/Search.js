@@ -29,7 +29,7 @@ class Search extends Component {
             BooksAPI.search(query).then((books) => {
                 if (books.length > 0) {
                     console.log('result', books);
-                    books = books.filter((book) => (book.imageLinks.thumbnail));
+                    // books = books.filter((book) => (book.imageLinks.thumbnail));
                     this.setState({ results: books });
                 }
                 else {
@@ -86,8 +86,11 @@ class Search extends Component {
                     <ol className="books-grid">
                         {this.state.results.map((book, index) => (
                             <Book
-                                book={book}
                                 key={index}
+                                id={book.industryIdentifiers[0].identifier}
+                                title={book.title}
+                                author={book.authors[0]}
+                                image={book.imageLinks.thumbnail} 
                                 updateShelf={this.props.updateShelf}
                             />
                         ))}

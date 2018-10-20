@@ -38,10 +38,33 @@ class BooksApp extends React.Component {
         BooksAPI.update(book, shelf).then(() => {
             this.fetchBooks();
         });
-}
+    }
 
     render() {
-        
+        const bookshelves = [
+            { 
+                id: "currentlyReading",
+                title: "Currently Reading"
+            },
+            {
+                id: "wantToRead",
+                title: "Want to Read"
+            },
+            {
+                id: "read",
+                title: "Read"
+            }
+        ]
+
+        const bookshelveselement = bookshelves.map((item, index) => 
+            <BookShelf 
+                key={index}
+                books={this.state.books.filter(
+                    book => { return book.shelf === item.id })}
+                updateShelf={this.updateShelf}
+                title={item.title}
+            />
+        )
         
         return (
             this.state.showSearchPage ? <Search search={BooksAPI.search}/> : (
@@ -49,11 +72,9 @@ class BooksApp extends React.Component {
                     <div className="list-books-title">
                         <h1>MyReads</h1>
                     </div>
-                    <div className="list-books-content">          
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'currentlyReading' })} updateShelf={"changeShelf"} title="Currently Reading" />
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'wantToRead' })} updateShelf={"changeShelf"} title="Want to Read" />
-                        <BookShelf books={this.state.books.filter(book => { return book.shelf === 'read' })} updateShelf={"changeShelf"} title="Read" />
-                    </div>
+                    <div className="list-books-content"> 
+                        {bookshelveselement}
+                        </div>
                     <div className="open-search">
                         <Router>
                             <div>

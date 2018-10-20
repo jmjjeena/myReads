@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 class Book extends Component {
     
-  updateShelf = (e) => {
-      console.log('Updating!', this.props.book.shelf)
-    this.props.updateShelf(this.props.book, e.target.value);
+  handleClick = (e) => {
+    console.log("this.props.book", this.props.book)
+    console.log('e', e)
+    // this.props.updateShelf(this.props.book, e.target.value);
   }
 
     render() {
+        console.log(this.props.id)
         return (
-            < div className="book" key={this.props.id} >
+            < div className="book" id={this.props.id} >
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.image}")` }}></div>
+                    <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.image}")` }}>
+                    </div>
                     <div className="book-shelf-changer">
-                        <select>
+                        <select onChange={(e)=>this.han}>
                             <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
+                            <option value="currentlyReading" onClick={(e)=>this.handleClick(e)}>Currently Reading</option>
+                            <option value="wantToRead" onClick={(e) => this.handleClick(e)}>Want to Read</option>
+                            <option value="read" onClick={(e) => this.handleClick(e)}>Read</option>
+                            <option value="none" onClick={(e) => this.handleClick(e)}>None</option>
                         </select>
                     </div>
                 </div>
