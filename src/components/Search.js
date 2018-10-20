@@ -13,6 +13,7 @@ class Search extends Component {
         if (query) {
             BooksAPI.search(query).then((books) => {
                 if (books.length > 0) {
+
                     this.setState({ results: books });
                 }
                 else {

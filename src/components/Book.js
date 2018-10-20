@@ -4,14 +4,10 @@ import PropTypes from 'prop-types';
 class Book extends Component {
     
   handleClick = (e) => {
-    // console.log("this.props.book", this.props.book)
-    // console.log('e', e.target.value)
     this.props.updateShelf(this.props.book, e.target.value)
   }
 
     render() {
-        // console.log(this.props.id)
-        // console.log("author: ", this.props.author)
         return (
             < div className="book" id={this.props.id} >
                 <div className="book-top">
