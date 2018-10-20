@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 
 class BookCase extends Component {
     
-    componentDidMount() {
-        () => this.props.fetchbooks()
-    }
 
     render() {
         const shelves = [
