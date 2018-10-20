@@ -43,6 +43,7 @@ class Search extends Component {
     }
 
     render() {
+        console.log("PROPS:", this.props)
         // console.log(this.state.results.length > 0)
         // const booksElements = this.state.results.length > 0 ? this.state.results.map(book => 
         //     <Book 
@@ -58,9 +59,14 @@ class Search extends Component {
             <div className="search-books-bar">
                     <Router>
                         <div>
-                            <Link to="/" className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</Link>
+                            <Link to="/" className="close-search" onClick={() => this.props.changeSearch()}>Close</Link>
 
-                            <Route exact path="/" component={BooksApp} />
+                            <Route 
+                                exact path="/" 
+                                // component={BooksApp}
+
+                                render={(props) => <BooksApp {...props} showSearchPage={false} />} 
+                            />
                         </div>
                     </Router>
                     <div className="search-books-input-wrapper">
@@ -74,6 +80,9 @@ class Search extends Component {
 
                     
                         {/*
+  
+  render={(props) => <Dashboard {...props} isAuthed={true} />}
+
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
                   You can find these search terms here:
                   https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
@@ -84,7 +93,7 @@ class Search extends Component {
                 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.results.map((book, index) => (
+                        {this.state.results.length > 0 ? this.state.results.map((book, index) => (
                             <Book
                                 key={index}
                                 id={book.industryIdentifiers[0].identifier}
@@ -94,7 +103,7 @@ class Search extends Component {
                                 updateShelf={this.props.updateShelf}
                                 book={book}
                             />
-                        ))}
+                        )) : ""}
                         {/* {booksElements} */}
                     </ol>
                 </div>

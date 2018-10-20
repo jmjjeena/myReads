@@ -18,7 +18,7 @@ class BooksApp extends React.Component {
          * users can use the browser's back and forward buttons to navigate between
          * pages, as well as provide a good URL they can bookmark and share.
          */
-        showSearchPage: false,
+        showSearchPage: this.props.showSearchPage || false,
         books:[]
     }
 
@@ -40,8 +40,13 @@ class BooksApp extends React.Component {
       this.fetchBooks();
     }
 
+    changeSearch = () => {
+        this.setState({showSearchPage: false})
+    }
+
     render() {
         console.log("state in app: ", this.state.books)
+        
         const bookshelves = [
             { 
                 id: "currentlyReading",
@@ -72,6 +77,7 @@ class BooksApp extends React.Component {
                 <Search 
                     search={BooksAPI.search}
                     updateShelf={this.updateShelf}
+                    changeSearch={this.changeSearch}
                 /> : (
                 <div className="list-books">
                     <div className="list-books-title">
