@@ -31,16 +31,17 @@ class BooksApp extends React.Component {
             this.setState({ books });
         });
     }
-
-    updateShelf = (book, shelf) => {
+    
+    updateShelf = async (book, shelf) => {
+        console.log("got called", shelf)
     // console.log('book', book);
     // console.log('e', shelf);
-        BooksAPI.update(book, shelf).then(() => {
-            this.fetchBooks();
-        });
+      await  BooksAPI.update(book, shelf)
+      this.fetchBooks();
     }
 
     render() {
+        console.log("state in app: ", this.state.books)
         const bookshelves = [
             { 
                 id: "currentlyReading",
@@ -67,7 +68,11 @@ class BooksApp extends React.Component {
         )
         
         return (
-            this.state.showSearchPage ? <Search search={BooksAPI.search}/> : (
+            this.state.showSearchPage ? 
+                <Search 
+                    search={BooksAPI.search}
+                    updateShelf={this.updateShelf}
+                /> : (
                 <div className="list-books">
                     <div className="list-books-title">
                         <h1>MyReads</h1>
@@ -78,8 +83,7 @@ class BooksApp extends React.Component {
                     <div className="open-search">
                         <Router>
                             <div>
-                                <Link to="/search"onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link> 
-                                
+                                <Link to="/search" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link> 
                                 <Route path="/search" component={Search} />     
                             </div>                      
                         </Router>

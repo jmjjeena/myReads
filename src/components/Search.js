@@ -92,6 +92,7 @@ class Search extends Component {
                                 author={book.authors[0]}
                                 image={book.imageLinks.thumbnail} 
                                 updateShelf={this.props.updateShelf}
+                                book={book}
                             />
                         ))}
                         {/* {booksElements} */}

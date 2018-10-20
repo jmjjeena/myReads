@@ -9,9 +9,10 @@ class BookShelf extends Component {
                 <Book 
                     id={book.industryIdentifiers[0].identifier}
                     title={book.title}
-                    author={book.authors[0]}
+                    authors={book.authors ? book.authors:""}
                     image={book.imageLinks.thumbnail} 
                     updateShelf={this.props.updateShelf}
+                    book={book}
                 /> 
             </li>
         )
