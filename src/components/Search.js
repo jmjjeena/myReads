@@ -89,7 +89,7 @@ class Search extends Component {
                                 key={index}
                                 id={book.industryIdentifiers[0].identifier}
                                 title={book.title}
-                                author={book.authors[0]}
+                                authors={book.authors ? book.authors : ""}
                                 image={book.imageLinks.thumbnail} 
                                 updateShelf={this.props.updateShelf}
                                 book={book}
