@@ -7,9 +7,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-// const data = BooksAPI.getAll().then(data => data);
-// console.log(data);
-
 class BooksApp extends React.Component {
     state = {
         /**
@@ -27,15 +24,11 @@ class BooksApp extends React.Component {
     }
     fetchBooks = () => {
         BooksAPI.getAll().then((books) => {
-            // console.log('data', books);
             this.setState({ books });
         });
     }
     
     updateShelf = async (book, shelf) => {
-        console.log("got called", shelf)
-    // console.log('book', book);
-    // console.log('e', shelf);
       await  BooksAPI.update(book, shelf)
       this.fetchBooks();
     }
@@ -45,8 +38,6 @@ class BooksApp extends React.Component {
     }
 
     render() {
-        console.log("state in app: ", this.state.books)
-        
         const bookshelves = [
             { 
                 id: "currentlyReading",

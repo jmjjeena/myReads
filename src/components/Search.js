@@ -9,27 +9,10 @@ class Search extends Component {
         results: []
     }
 
-    // handleSearch = this.handleSearch.bind(this);
-
-    // handleSearch(query) {
-    //     console.log("query: ", query)
-    //     this.props.search(query)
-    //     .then(results => {
-    //         console.log("results: ", results)
-    //         if (Array.isArray(results)){
-    //             this.setState({ results })
-    //         } else {
-    //             this.setState({results: []})
-    //         }   
-    //     })
-    // 
     handleSearch = (query) => {
         if (query) {
-            console.log('query', query);
             BooksAPI.search(query).then((books) => {
                 if (books.length > 0) {
-                    console.log('result', books);
-                    // books = books.filter((book) => (book.imageLinks.thumbnail));
                     this.setState({ results: books });
                 }
                 else {
@@ -37,23 +20,11 @@ class Search extends Component {
                 }
             });
         } else {
-            console.log('no query:', query);
             this.setState({ results: [] });
         }
     }
 
     render() {
-        console.log("PROPS:", this.props)
-        // console.log(this.state.results.length > 0)
-        // const booksElements = this.state.results.length > 0 ? this.state.results.map(book => 
-        //     <Book 
-        //         id={book.industryIdentifiers[0].identifier}
-        //         title={book.title}
-        //         author={book.authors[0]}
-        //         image={book.imageLinks.thumbnail} 
-        //     />
-        // ) : "";
-        //     console.log("bookElements: ", booksElements)
         return (
             <div className="search-books">
             <div className="search-books-bar">
