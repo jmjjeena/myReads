@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Book from './Book'
-import BooksApp from '../App'
+import Books from './BookCase/Books'
 import * as BooksAPI from '../BooksAPI'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 class Search extends Component {
     state = {
@@ -29,26 +29,15 @@ class Search extends Component {
         return (
             <div className="search-books">
             <div className="search-books-bar">
-                    <Router>
-                        <div>
-                            <Link to="/" className="close-search" onClick={() => this.props.changeSearch()}>Close</Link>
-
-                            <Route 
-                                exact path="/" 
-                                // component={BooksApp}
-
-                                render={(props) => <BooksApp {...props} showSearchPage={false} />} 
-                            />
-                        </div>
-                    </Router>
-                    <div className="search-books-input-wrapper">
-                        <input 
-                            type="text"
-                            placeholder="Search by title or author" 
-                            onChange={event => this.handleSearch(event.target.value)} 
-                            />
-                    </div>
-                </div> 
+                    <Link to="/" className="close-search">Close</Link>
+                <div className="search-books-input-wrapper">
+                    <input 
+                        type="text"
+                        placeholder="Search by title or author" 
+                        onChange={event => this.handleSearch(event.target.value)} 
+                        />
+                </div>
+            </div> 
 
                     
                         {/*
@@ -65,17 +54,12 @@ class Search extends Component {
                 
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {this.state.results.length > 0 ? this.state.results.map((book, index) => (
-                            <Book
-                                key={index}
-                                id={book.industryIdentifiers[0].identifier}
-                                title={book.title}
-                                authors={book.authors ? book.authors : ""}
-                                image={book.imageLinks.thumbnail} 
+                        {this.state.results.length > 0 ?
+                            <Books
+                                books={this.state.results}
                                 updateShelf={this.props.updateShelf}
-                                book={book}
                             />
-                        )) : ""}
+                         : ""}
                         {/* {booksElements} */}
                     </ol>
                 </div>

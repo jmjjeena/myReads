@@ -1,8 +1,8 @@
 import React from 'react'
 import Search from './components/Search'
-import BookShelf from './components/BookShelf'
+import BookCase from './components/BookCase/BookCase'
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 // import * as BooksAPI from './BooksAPI'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -22,9 +22,11 @@ class BooksApp extends React.Component {
     componentDidMount() {
         this.fetchBooks();
     }
-    fetchBooks = () => {
-        BooksAPI.getAll().then((books) => {
+
+    fetchBooks = async () => {
+        await BooksAPI.getAll().then((books) => {
             this.setState({ books });
+            return books
         });
     }
     
@@ -33,60 +35,26 @@ class BooksApp extends React.Component {
       this.fetchBooks();
     }
 
-    changeSearch = () => {
-        this.setState({showSearchPage: false})
-    }
-
-    render() {
-        const bookshelves = [
-            { 
-                id: "currentlyReading",
-                title: "Currently Reading"
-            },
-            {
-                id: "wantToRead",
-                title: "Want to Read"
-            },
-            {
-                id: "read",
-                title: "Read"
-            }
-        ]
-
-        const bookshelveselement = bookshelves.map((item, index) => 
-            <BookShelf 
-                key={index}
-                books={this.state.books.filter(
-                    book => { return book.shelf === item.id })}
-                updateShelf={this.updateShelf}
-                title={item.title}
-            />
-        )
-        
-        return (
-            this.state.showSearchPage ? 
-                <Search 
-                    search={BooksAPI.search}
-                    updateShelf={this.updateShelf}
-                    changeSearch={this.changeSearch}
-                /> : (
-                <div className="list-books">
-                    <div className="list-books-title">
-                        <h1>MyReads</h1>
-                    </div>
-                    <div className="list-books-content"> 
-                        {bookshelveselement}
-                        </div>
-                    <div className="open-search">
-                        <Router>
-                            <div>
-                                <Link to="/search" onClick={() => this.setState({ showSearchPage: true })}>Add a book</Link> 
-                        
-                            </div>                      
-                        </Router>
-                    </div>
-                </div>
-            )
+    render() {  
+        return(
+            <div>
+                <Route
+                    path="/search"
+                    render={(props) => <Search
+                        {...props}
+                        updateShelf={this.updateShelf}
+                    />}
+                />
+                <Route
+                    exact path="/"
+                    render={(props) => <BookCase 
+                        {...props} 
+                        fetchBooks={this.fetchBooks}
+                        books={this.state.books} 
+                        updateShelf={this.updateShelf}
+                    />}
+                />
+            </div>
         )
     }
 }
