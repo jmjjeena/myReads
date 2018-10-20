@@ -1,8 +1,15 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
+A book tracking application, allowing user to dynamically store books in different shelves (currently reading, want to read, and read) using component state and built using React.
 
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+## Table of Contents
+
+* TL;DR
+* What You're Getting
+* Backend Server
+* Important
+* Create React App
+* Acknowledgments
 
 ## TL;DR
 
@@ -18,17 +25,22 @@ To get started developing right away:
 ├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
 ├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
 ├── public
-│   ├── favicon.ico # React Icon, You may change if you wish.
-│   └── index.html # DO NOT MODIFY
+│   ├── favicon.ico # React Icon, You may change if you wish.
+│   └── index.html # DO NOT MODIFY
 └── src
+    ├── Components # Folder containing App components
+        ├── Book.js # Book component
+        ├── BookShelf.js # BookShelf component
+        ├── ListBooks.js # ListBooks component
+        └── SearchBooks.js # SearchBooks component
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
     ├── icons # Helpful images for your app. Use at your discretion.
-    │   ├── add.svg
-    │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
+    │   ├── add.svg
+    │   ├── arrow-back.svg
+    │   └── arrow-drop-down.svg
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```
@@ -37,7 +49,7 @@ Remember that good React design practice is to create new JS files for each comp
 
 ## Backend Server
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -85,8 +97,11 @@ The backend API uses a fixed set of cached search results and is limited to a pa
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-## Contributing
+## Acknowledgments
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+* Udacity community managers
+* Project coaches
+* [YouTube](https://www.youtube.com/watch?v=bpKI3R0nf7E&list=PLXTpiuBuulNVENqbdYwqI9g004r7JitZd&t=197s&index=63) - Project 6 My-Reads Walk Through by Forrest Walker
+* [YouTube](https://www.youtube.com/watch?v=OcL7-7cRpkQ&index=59&list=PLXTpiuBuulNVENqbdYwqI9g004r7JitZd) - My Reads / React Zoom Study Session w/ Doug Brown
+* [Introduction to React Router](flaviocopes.com)
+* [Routing in React, the uncomplicated way – Hacker Noon](hackernoon.com)
